@@ -1,0 +1,186 @@
+﻿<Window
+    Height="600"
+    Title="Creation Pegs Config"
+    Width="500"
+    WindowStartupLocation="CenterOwner"
+    mc:Ignorable="d"
+    x:Class="GaltonBoard.App.Windows.CreationPegsConfigWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:components="clr-namespace:GaltonBoard.App.Components"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:GaltonBoard.App.Windows"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <GroupBox Header="Engine Balls Config" Padding="20,15">
+            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock
+                        FontWeight="Bold"
+                        Margin="0,0,30,0"
+                        VerticalAlignment="Center">
+                        Restitution:
+                    </TextBlock>
+                    <StackPanel
+                        HorizontalAlignment="Left"
+                        Margin="0,10"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center">
+                        <components:ValueInput
+                            InputType="Double"
+                            Label="Value"
+                            TextBoxWidth="100"
+                            Value="10"
+                            x:Name="RestitutionInput" />
+
+                        <TextBlock Margin="0,0,5,0" VerticalAlignment="Center">
+                            Direction create
+                        </TextBlock>
+                        <ComboBox
+                            Margin="10,5"
+                            SelectedIndex="0"
+                            VerticalAlignment="Center"
+                            Width="70"
+                            x:Name="DirectionCreateInput">
+                            <ComboBoxItem Content="None" IsSelected="True" />
+                            <ComboBoxItem Content="Vertical" />
+                            <ComboBoxItem Content="Horizontal" />
+                        </ComboBox>
+                    </StackPanel>
+
+                    <TextBlock
+                        FontWeight="Bold"
+                        Margin="0,0,30,0"
+                        VerticalAlignment="Center">
+                        Radius:
+                    </TextBlock>
+                    <StackPanel
+                        HorizontalAlignment="Left"
+                        Margin="0,10"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center">
+                        <components:ValueInput
+                            InputType="Double"
+                            Label="Min"
+                            Max="{Binding ElementName=RadiusMaxInput, Path=Value}"
+                            Min="0.0"
+                            TextBoxWidth="100"
+                            Value="10"
+                            x:Name="RadiusMinInput" />
+                        <components:ValueInput
+                            InputType="Double"
+                            Label="Max"
+                            TextBoxWidth="100"
+                            Value="10"
+                            x:Name="RadiusMaxInput" />
+                    </StackPanel>
+
+                    <TextBlock
+                        FontWeight="Bold"
+                        Margin="0,0,30,0"
+                        VerticalAlignment="Center">
+                        Mass:
+                    </TextBlock>
+                    <StackPanel
+                        HorizontalAlignment="Left"
+                        Margin="0,10"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center">
+                        <components:ValueInput
+                            InputType="Double"
+                            Label="Min"
+                            Max="{Binding ElementName=MassMaxInput, Path=Value}"
+                            Min="0.0"
+                            TextBoxWidth="100"
+                            Value="10"
+                            x:Name="MassMinInput" />
+                        <components:ValueInput
+                            InputType="Double"
+                            Label="Max"
+                            TextBoxWidth="100"
+                            Value="10"
+                            x:Name="MassMaxInput" />
+                    </StackPanel>
+
+                    <TextBlock
+                        FontWeight="Bold"
+                        Margin="0,0,30,0"
+                        VerticalAlignment="Center">
+                        Vibrations:
+                    </TextBlock>
+                    <StackPanel
+                        HorizontalAlignment="Left"
+                        Margin="0,10"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center">
+                        <TextBlock Margin="0,0,30,0" VerticalAlignment="Center">
+                            ->Frequency
+                        </TextBlock>
+                        <components:ValueInput
+                            InputType="Double"
+                            Label="X"
+                            Max="{Binding ElementName=FrequencyYInput, Path=Value}"
+                            Min="0.0"
+                            TextBoxWidth="80"
+                            Value="10"
+                            x:Name="FrequencyXInput" />
+                        <components:ValueInput
+                            InputType="Double"
+                            Label="Y"
+                            TextBoxWidth="80"
+                            Value="10"
+                            x:Name="FrequencyYInput" />
+                    </StackPanel>
+
+                    <StackPanel
+                        HorizontalAlignment="Left"
+                        Margin="0,10"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center">
+                        <TextBlock Margin="0,0,30,0" VerticalAlignment="Center">
+                            ->Amplitude
+                        </TextBlock>
+                        <components:ValueInput
+                            InputType="Double"
+                            Label="X"
+                            Max="{Binding ElementName=AmplitudeYInput, Path=Value}"
+                            Min="0.0"
+                            TextBoxWidth="80"
+                            Value="10"
+                            x:Name="AmplitudeXInput" />
+                        <components:ValueInput
+                            InputType="Double"
+                            Label="Y"
+                            TextBoxWidth="80"
+                            Value="10"
+                            x:Name="AmplitudeYInput" />
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </GroupBox>
+
+        <StackPanel
+            Grid.Row="1"
+            HorizontalAlignment="Right"
+            Margin="0,10,0,0"
+            Orientation="Horizontal"
+            VerticalAlignment="Bottom">
+            <Button
+                Click="Reset"
+                Content="Reset"
+                Margin="0,0,10,0"
+                Padding="10,5"
+                Width="100" />
+            <Button
+                Click="Save"
+                Content="Save"
+                Padding="10,5"
+                Width="100" />
+        </StackPanel>
+    </Grid>
+</Window>

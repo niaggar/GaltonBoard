@@ -1,0 +1,167 @@
+﻿<Window
+    Height="600"
+    Title="Engine Config"
+    Width="500"
+    WindowStartupLocation="CenterOwner"
+    mc:Ignorable="d"
+    x:Class="GaltonBoard.App.Windows.EngineConfigWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:components="clr-namespace:GaltonBoard.App.Components"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:GaltonBoard.App.Windows"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <GroupBox Header="Engine Config" Padding="20,15">
+            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock
+                        FontWeight="Bold"
+                        Margin="0,0,30,0"
+                        VerticalAlignment="Center">
+                        Gravity:
+                    </TextBlock>
+                    <StackPanel
+                        HorizontalAlignment="Left"
+                        Margin="0,10"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center">
+                        <components:ValueInput
+                            InputType="Double"
+                            Label="X"
+                            TextBoxWidth="100"
+                            Value="10"
+                            x:Name="GravityXValueInput" />
+                        <components:ValueInput
+                            InputType="Double"
+                            Label="Y"
+                            TextBoxWidth="100"
+                            Value="10"
+                            x:Name="GravityYValueInput" />
+                    </StackPanel>
+
+                    <TextBlock
+                        FontWeight="Bold"
+                        Margin="0,0,30,0"
+                        VerticalAlignment="Center">
+                        Dimensions:
+                    </TextBlock>
+                    <StackPanel
+                        HorizontalAlignment="Left"
+                        Margin="0,10"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center">
+                        <components:ValueInput
+                            InputType="Double"
+                            Label="Width"
+                            TextBoxWidth="100"
+                            Value="10"
+                            x:Name="WidthValueInput" />
+                        <components:ValueInput
+                            InputType="Double"
+                            Label="Height"
+                            TextBoxWidth="100"
+                            Value="10"
+                            x:Name="HeightValueInput" />
+                    </StackPanel>
+
+                    <TextBlock
+                        FontWeight="Bold"
+                        Margin="0,0,30,0"
+                        VerticalAlignment="Center">
+                        Props:
+                    </TextBlock>
+                    <StackPanel
+                        HorizontalAlignment="Left"
+                        Margin="0,10"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center">
+                        <components:ValueInput
+                            InputType="Double"
+                            Label="Drag"
+                            TextBoxWidth="100"
+                            Value="10"
+                            x:Name="DragValueInput" />
+                        <components:ValueInput
+                            InputType="Double"
+                            Label="Restitution"
+                            TextBoxWidth="100"
+                            Value="10"
+                            x:Name="RestitutionValueInput" />
+                    </StackPanel>
+
+                    <TextBlock
+                        FontWeight="Bold"
+                        Margin="0,0,30,0"
+                        VerticalAlignment="Center">
+                        Time:
+                    </TextBlock>
+                    <StackPanel
+                        HorizontalAlignment="Left"
+                        Margin="0,10"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center">
+                        <components:ValueInput
+                            InputType="Integer"
+                            Label="Step"
+                            TextBoxWidth="60"
+                            Value="10"
+                            x:Name="StepValueInput" />
+                        <components:ValueInput
+                            InputType="Integer"
+                            Label="Substeps"
+                            Max="20"
+                            Min="1"
+                            TextBoxWidth="30"
+                            Value="10"
+                            x:Name="SubstepsValueInput" />
+                        <components:ValueInput
+                            InputType="Integer"
+                            Label="Max"
+                            TextBoxWidth="60"
+                            Value="10"
+                            x:Name="MaxStepsValueInput" />
+                    </StackPanel>
+
+                    <TextBlock
+                        FontWeight="Bold"
+                        Margin="0,0,30,0"
+                        VerticalAlignment="Center">
+                        Is Collision Active:
+                    </TextBlock>
+                    <StackPanel
+                        HorizontalAlignment="Left"
+                        Margin="0,10"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center">
+                        <CheckBox x:Name="CollisionActiveInput" />
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </GroupBox>
+
+        <StackPanel
+            Grid.Row="1"
+            HorizontalAlignment="Right"
+            Margin="0,10,0,0"
+            Orientation="Horizontal"
+            VerticalAlignment="Bottom">
+            <Button
+                Click="Reset"
+                Content="Reset"
+                Margin="0,0,10,0"
+                Padding="10,5"
+                Width="100" />
+            <Button
+                Click="Save"
+                Content="Save"
+                Padding="10,5"
+                Width="100" />
+        </StackPanel>
+    </Grid>
+</Window>

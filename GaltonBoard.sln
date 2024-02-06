@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GaltonBoard.App", "GaltonBoard.App\GaltonBoard.App.csproj", "{EFE6D8BB-7D85-422A-A620-5682C6225301}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GaltonBoard.Core", "GaltonBoard.Core\GaltonBoard.Core.csproj", "{AAE5B868-1FB5-4B97-BB5C-242C9294207E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GaltonBoard.Model", "GaltonBoard.Model\GaltonBoard.Model.csproj", "{02E9AC70-5B4E-4105-9D9C-16B1C710C063}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EFE6D8BB-7D85-422A-A620-5682C6225301}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFE6D8BB-7D85-422A-A620-5682C6225301}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFE6D8BB-7D85-422A-A620-5682C6225301}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFE6D8BB-7D85-422A-A620-5682C6225301}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAE5B868-1FB5-4B97-BB5C-242C9294207E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAE5B868-1FB5-4B97-BB5C-242C9294207E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAE5B868-1FB5-4B97-BB5C-242C9294207E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAE5B868-1FB5-4B97-BB5C-242C9294207E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02E9AC70-5B4E-4105-9D9C-16B1C710C063}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02E9AC70-5B4E-4105-9D9C-16B1C710C063}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02E9AC70-5B4E-4105-9D9C-16B1C710C063}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02E9AC70-5B4E-4105-9D9C-16B1C710C063}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

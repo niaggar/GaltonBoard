@@ -1,0 +1,35 @@
+﻿<Window
+    Height="450"
+    Title="Simulation"
+    Width="800"
+    WindowState="Maximized"
+    mc:Ignorable="d"
+    x:Class="GaltonBoard.App.Windows.SimulationWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:GaltonBoard.App.Components"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top">
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button
+                    Click="btnStop_Click"
+                    Content="Stop"
+                    Margin="5"
+                    Padding="15,2"
+                    Width="100" />
+                <Button
+                    Click="btnStart_Click"
+                    Content="Start"
+                    Margin="5"
+                    Padding="15,2"
+                    Width="100" />
+            </StackPanel>
+        </DockPanel>
+
+        <Canvas x:Name="CanvasRender">
+            <Image x:Name="ImageRender" />
+        </Canvas>
+    </DockPanel>
+</Window>
