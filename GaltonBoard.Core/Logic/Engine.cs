@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GaltonBoard.Core.Logic;
 
-public class Engine(EngineConfig configs, int particlesCount, int pegsCount)
+public class Engine(EngineConfig configs, BoardConfig boardConfig, int particlesCount, int pegsCount)
 {
     public double CurrentTime { get; set; } = 0.0d;
     public int CurrentStep { get; set; } = 0;
@@ -19,6 +19,7 @@ public class Engine(EngineConfig configs, int particlesCount, int pegsCount)
 
 
     public EngineConfig Configs { get; set; } = configs;
+    public BoardConfig BoardConfig { get; set; } = boardConfig;
     public List<Particle> Particles { get; set; } = new() { Capacity = particlesCount + pegsCount };
 
 
@@ -27,18 +28,12 @@ public class Engine(EngineConfig configs, int particlesCount, int pegsCount)
     public event EventHandler<FinishedEventArgs>? Finished;
     public event EventHandler<StepEventArgs>? Step;
 
+    public Grid BoardGrid { get; set; } = new(configs.Border);
+
 
     public void AddParticle(Particle particle)
     {
         Particles.Add(particle);
-    }
-
-    public void RemoveParticle(int id)
-    {
-        var particle = Particles.FirstOrDefault(p => p.Id == id);
-        if (particle is null) return;
-
-        Particles.Remove(particle);
     }
 
     public void RunStep(float deltaTime, int subSteps = 1)
@@ -49,7 +44,16 @@ public class Engine(EngineConfig configs, int particlesCount, int pegsCount)
         for (var i = 0; i < subSteps; i++)
         {
             UpdateParticles(deltaSubStep);
-            ValidateCollisions();
+
+            if (Constants.IsParallel)
+            {
+                UpdateGrid();
+                ValidateCollisionsParallel();
+            }
+            else
+            {
+                ValidateCollisions();
+            }
         }
 
         CurrentTime += deltaTime;
@@ -58,6 +62,88 @@ public class Engine(EngineConfig configs, int particlesCount, int pegsCount)
         OnStep();
         ValidateFinished();
     }
+
+    private void UpdateGrid()
+    {
+        BoardGrid.Clear();
+        foreach (var particle in Particles)
+        {
+            BoardGrid.AddParticle(particle);
+        }
+    }
+
+    private void ValidateCollisionsParallel()
+    {
+        var rows = BoardGrid.Rows;
+        var columns = BoardGrid.Columns;
+
+        var sectorRows = rows / Constants.NumberOfSimultaneousCollisionsValidation;
+        var sectorColumns = columns / Constants.NumberOfSimultaneousCollisionsValidation;
+
+        if (sectorRows == 0) sectorRows = 1;
+        if (sectorColumns == 0) sectorColumns = 1;
+
+
+        for (var i = 0; i < sectorRows; i++)
+        {
+            for (var j = 0; j < sectorColumns; j++)
+            {
+                var row = i * sectorRows;
+                var column = j * sectorColumns;
+
+                var finalRow = row + sectorRows;
+                var finalColumn = column + sectorColumns;
+
+                ValidateCollisionsSector(row, column, finalRow, finalColumn);
+            }
+        }
+    }
+
+    private void ValidateCollisionsSector(int initialRow, int initialColumn, int finalRow, int finalColumn)
+    {
+        for (var internalRow = initialRow; internalRow < finalRow; internalRow++)
+        {
+            for (var internalColumn = initialColumn; internalColumn < finalColumn; internalColumn++)
+            {
+                var cells = BoardGrid.GetCellAndNeighbors(internalRow, internalColumn);
+
+                var pegs = cells.SelectMany(c => c.Pegs).ToList();
+                var balls = cells.SelectMany(c => c.Balls).ToList();
+
+                for (var i = 0; i < balls.Count; i++)
+                {
+                    var particleA = balls[i];
+                    if (particleA.Config.IsInactive) continue;
+
+                    for (var iPeg = 0; iPeg < pegs.Count; iPeg++)
+                    {
+                        var peg = pegs[iPeg];
+                        if (peg.Config.IsInactive) continue;
+
+                        var collision = ParticleCollider.Check(particleA, peg);
+                        if (collision is null) continue;
+
+                        ParticleCollider.Resolve(collision, particleA, peg);
+                        OnParticleCollision(particleA, peg);
+                    }
+
+                    if (!Configs.IsCollisionActive) continue;
+                    for (var j = i + 1; j < balls.Count; j++)
+                    {
+                        var ball = balls[j];
+                        if (ball.Config.IsInactive) continue;
+
+                        var collision = ParticleCollider.Check(particleA, ball);
+                        if (collision is null) continue;
+
+                        ParticleCollider.Resolve(collision, particleA, ball);
+                        OnParticleCollision(particleA, ball);
+                    }
+                }
+            }
+        }
+    }
+
 
     private void UpdateParticles(float deltaTime)
     {

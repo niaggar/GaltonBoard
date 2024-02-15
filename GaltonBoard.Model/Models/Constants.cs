@@ -1,4 +1,4 @@
-﻿namespace GaltonBoard.Core.Utils;
+﻿namespace GaltonBoard.Model.Models;
 
 public static class Constants
 {
@@ -8,4 +8,10 @@ public static class Constants
     public const bool SolveUsingImpulse = true;
     public const double RadiusBorderScale = 0.2;
     public const int StepsToNotify = 20;
+
+    public const int GridBoardColumns = 10;
+    public const int GridBoardRows = 10;
+
+    public const int NumberOfSimultaneousCollisionsValidation = 4;
+    public const bool IsParallel = true;
 }

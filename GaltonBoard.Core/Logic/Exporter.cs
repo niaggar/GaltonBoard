@@ -41,7 +41,8 @@ public class Exporter
 
         if (DrawBorder?.Length == 0)
         {
-            DrawBorder = BorderFactory.CreateDrawBorder(border);
+            // DrawBorder = BorderFactory.CreateDrawBorder(border);
+            DrawBorder = Array.Empty<Vector>();
         }
 
         var totalNumberOfParticles = particles.Length;

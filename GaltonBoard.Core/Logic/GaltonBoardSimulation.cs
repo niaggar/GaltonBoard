@@ -59,7 +59,7 @@ public class GaltonBoardSimulation
         Balls = balls;
         Pegs = pegs;
         EngineConfig.Border = border;
-        Engine = new Engine(EngineConfig, balls.Length, pegs.Length);
+        Engine = new Engine(EngineConfig, BoardConfig, balls.Length, pegs.Length);
         Exporter = new Exporter(ExportConfig);
         Timer = new Stopwatch();
 
