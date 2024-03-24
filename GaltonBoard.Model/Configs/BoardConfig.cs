@@ -1,4 +1,5 @@
-﻿using GaltonBoard.Model.Models;
+﻿using GaltonBoard.Model.Enums;
+using GaltonBoard.Model.Models;
 
 namespace GaltonBoard.Model.Configs;
 
@@ -18,6 +19,8 @@ public class BoardConfig
     public double RowsHeight { get; set; }
     public double ColumnsWidth { get; set; }
 
+    public PegsDistributionEnum PegsDistribution { get; set; }
+
     public static BoardConfig Default => new()
     {
         NumberOfColumns = 10,
@@ -30,5 +33,6 @@ public class BoardConfig
         ResizeFactorY = 1,
         RowsHeight = 4,
         ColumnsWidth = 4,
+        PegsDistribution = PegsDistributionEnum.Default
     };
 }

@@ -123,13 +123,38 @@
                             Label="Fact X"
                             TextBoxWidth="60"
                             Value="10"
+                            Visibility="Hidden"
                             x:Name="FactXInput" />
                         <components:ValueInput
                             InputType="Double"
                             Label="Fact Y"
                             TextBoxWidth="60"
                             Value="10"
+                            Visibility="Hidden"
                             x:Name="FactYInput" />
+                    </StackPanel>
+
+                    <TextBlock
+                        FontWeight="Bold"
+                        Margin="0,0,30,0"
+                        VerticalAlignment="Center">
+                        Pegs distribution:
+                    </TextBlock>
+                    <StackPanel
+                        HorizontalAlignment="Left"
+                        Margin="0,10"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        x:Name="PegsDistributions">
+                        <RadioButton
+                            Content="Default"
+                            GroupName="Distribution"
+                            IsChecked="True"
+                            Margin="0,0,10,0" />
+                        <RadioButton
+                            Content="Rectangular"
+                            GroupName="Distribution"
+                            Margin="0,0,10,0" />
                     </StackPanel>
                 </StackPanel>
             </ScrollViewer>

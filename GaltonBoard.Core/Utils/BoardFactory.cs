@@ -32,17 +32,17 @@ public static class BorderFactory
 
         var points = new List<Vector>();
 
-        for (var i = 0; i < numberOfVerticalPoints; i++)
-        {
-            points.Add(new Vector(0, i * Constants.RadiusBorderScale  * 2));
-            points.Add(new Vector(border.Width, i * Constants.RadiusBorderScale  * 2));
-        }
-
-        for (var i = 0; i < numberOfHorizontalPoints; i++)
-        {
-            points.Add(new Vector(i * Constants.RadiusBorderScale  * 2, 0));
-            points.Add(new Vector(i * Constants.RadiusBorderScale  * 2, border.Height));
-        }
+        // for (var i = 0; i < numberOfVerticalPoints; i++)
+        // {
+        //     points.Add(new Vector(0, i * Constants.RadiusBorderScale  * 2));
+        //     points.Add(new Vector(border.Width, i * Constants.RadiusBorderScale  * 2));
+        // }
+        //
+        // for (var i = 0; i < numberOfHorizontalPoints; i++)
+        // {
+        //     points.Add(new Vector(i * Constants.RadiusBorderScale  * 2, 0));
+        //     points.Add(new Vector(i * Constants.RadiusBorderScale  * 2, border.Height));
+        // }
 
         return points.ToArray();
     }

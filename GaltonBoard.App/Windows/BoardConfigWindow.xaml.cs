@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Windows;
+using System.Windows.Controls;
 using GaltonBoard.Model.Configs;
 using GaltonBoard.Model.Enums;
 using GaltonBoard.Model.Models;
@@ -29,10 +30,15 @@ public partial class BoardConfigWindow : Window
         FactYInput.Value = config.ResizeFactorY.ToString(CultureInfo.InvariantCulture);
         RowsHeightInput.Value = config.RowsHeight.ToString(CultureInfo.InvariantCulture);
         ColumnsWidthInput.Value = config.ColumnsWidth.ToString(CultureInfo.InvariantCulture);
+
+        var distributions = PegsDistributions.Children.OfType<RadioButton>().ToList();
+        distributions.First(r => r.Content.ToString() == config.PegsDistribution.ToString()).IsChecked = true;
     }
 
     private void Save(object sender, RoutedEventArgs e)
     {
+        var distributions = PegsDistributions.Children.OfType<RadioButton>().ToList();
+
         DialogResult = true;
         Config = new BoardConfig
         {
@@ -46,6 +52,12 @@ public partial class BoardConfigWindow : Window
             ResizeFactorY = double.Parse(FactYInput.Value),
             RowsHeight = double.Parse(RowsHeightInput.Value),
             ColumnsWidth = double.Parse(ColumnsWidthInput.Value),
+            PegsDistribution = distributions.First(r => r.IsChecked!.Value).Content.ToString() switch
+            {
+                "Default" => PegsDistributionEnum.Default,
+                "Rectangular" => PegsDistributionEnum.Rectangular,
+                _ => PegsDistributionEnum.Default,
+            }
         };
 
         Close();

@@ -48,14 +48,16 @@
                     <TextBlock
                         FontWeight="Bold"
                         Margin="0,0,30,0"
-                        VerticalAlignment="Center">
+                        VerticalAlignment="Center"
+                        Visibility="Hidden">
                         Dimensions:
                     </TextBlock>
                     <StackPanel
                         HorizontalAlignment="Left"
                         Margin="0,10"
                         Orientation="Horizontal"
-                        VerticalAlignment="Center">
+                        VerticalAlignment="Center"
+                        Visibility="Hidden">
                         <components:ValueInput
                             InputType="Double"
                             Label="Width"

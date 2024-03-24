@@ -1,4 +1,5 @@
-﻿using GaltonBoard.Core.Utils;
+﻿using System.Globalization;
+using GaltonBoard.Core.Utils;
 using GaltonBoard.Model.Configs;
 using GaltonBoard.Model.Enums;
 using GaltonBoard.Model.Models;
@@ -15,7 +16,7 @@ public class Exporter
     private MemoryStream HistogramStream { get; set; }
     private StreamWriter HistogramWriter { get; set; }
 
-    private Vector[] DrawBorder { get; set; } = Array.Empty<Vector>();
+    private Vector[]? DrawBorder { get; set; }
 
 
     public Exporter(ExportConfig exportConfig)
@@ -39,7 +40,7 @@ public class Exporter
     {
         if (!ExportConfig.ExportPath) return;
 
-        if (DrawBorder?.Length == 0)
+        if (DrawBorder is null)
         {
             // DrawBorder = BorderFactory.CreateDrawBorder(border);
             DrawBorder = Array.Empty<Vector>();
@@ -111,13 +112,13 @@ public class Exporter
         var type = (int)particle.Type;
         var radius = particle.Config.Radius;
 
-        return $"{num}\t{type}\t{position.X}\t{position.Y}\t{radius}\n";
+        return $"{num}\t{type}\t{position.X.ToString(CultureInfo.InvariantCulture)}\t{position.Y.ToString(CultureInfo.InvariantCulture)}\t{radius.ToString(CultureInfo.InvariantCulture)}\n";
     }
 
-    private string GetExportBorderString(Vector[] drawBorder, int lastParticleIndex)
+    private static string GetExportBorderString(Vector[] drawBorder, int lastParticleIndex)
     {
         return drawBorder
-            .Select((point, i) => $"{lastParticleIndex + i}\t{2}\t{point.X}\t{point.Y}\t{Constants.RadiusBorderScale}\n")
+            .Select((point, i) => $"{lastParticleIndex + i}\t{2}\t{point.X.ToString(CultureInfo.InvariantCulture)}\t{point.Y.ToString(CultureInfo.InvariantCulture)}\t{Constants.RadiusBorderScale.ToString(CultureInfo.InvariantCulture)}\n")
             .Aggregate(string.Empty, (current, pointString) => current + pointString);
     }
 

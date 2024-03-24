@@ -15,8 +15,13 @@ public static class ParticlesFactory
             var fractionX = RandomUtils.NextDouble(creationConfig.CenterX);
             var fractionY = RandomUtils.NextDouble(creationConfig.CenterY);
 
+            var angle = RandomUtils.NextDouble(creationConfig.VelocityAngleRange);
+            var angleRadians = angle * Math.PI / 180;
+            var fractionXVelocity = Math.Cos(angleRadians);
+            var fractionYVelocity = Math.Sin(angleRadians);
+
             var initialPosition = new Vector(border.Width * fractionX, border.Height * fractionY);
-            var initialVelocity = new Vector(RandomUtils.NextDouble(creationConfig.InitialVelocityX), RandomUtils.NextDouble(creationConfig.InitialVelocityY));
+            var initialVelocity = new Vector(creationConfig.VelocityMagnitude * fractionXVelocity, -creationConfig.VelocityMagnitude * fractionYVelocity);
             var mass = (float)RandomUtils.NextDouble(creationConfig.Mass);
             var particleConfig = new ParticleConfig()
             {
@@ -40,7 +45,7 @@ public static class ParticlesFactory
     public static Particle[] CreatePegs(PegCreationConfig creationConfig, BoardConfig boardConfig)
     {
         var pegs = new List<Peg>();
-        var rows = boardConfig.NumberOfRows / 2;
+        var rows = boardConfig.NumberOfRows;
         var columns = boardConfig.NumberOfColumns;
 
         var positionsInX = new List<double>();
@@ -70,7 +75,7 @@ public static class ParticlesFactory
             InverseMass = 1 / mass,
             Radius = (float)RandomUtils.NextDouble(creationConfig.Radio),
             Restitution = (float)creationConfig.Restitution,
-            IsStatic = true
+            IsStatic = false
         };
         var pegConfig = new PegConfig()
         {
@@ -97,6 +102,63 @@ public static class ParticlesFactory
             }
         }
 
-        return pegs.ToArray();
+        return pegs.ToArray() as Particle[];
+    }
+
+    public static Particle[] CreateRectangularPegs(PegCreationConfig creationConfig, BoardConfig boardConfig)
+    {
+        var pegs = new List<Peg>();
+        var rows = boardConfig.NumberOfRows;
+        var columns = boardConfig.NumberOfColumns;
+
+        var positionsInX = new List<double>();
+        var middleColumn = columns / 2;
+
+        for (var i = 0; i < columns; i++) positionsInX.Add(i - (middleColumn));
+
+        for (var i = 0; i < columns; i++)
+        {
+            var currentX = positionsInX[i];
+            var finalX = currentX < 0
+                ? currentX * boardConfig.ColumnsWidth / boardConfig.ResizeFactorX
+                : currentX * boardConfig.ColumnsWidth * boardConfig.ResizeFactorX;
+
+            positionsInX[i] = finalX;
+        }
+
+        var mass = (float)RandomUtils.NextDouble(creationConfig.Mass);
+        var particleConfig = new ParticleConfig()
+        {
+            Mass = mass,
+            InverseMass = 1 / mass,
+            Radius = (float)RandomUtils.NextDouble(creationConfig.Radio),
+            Restitution = (float)creationConfig.Restitution,
+            IsStatic = false
+        };
+        var pegConfig = new PegConfig()
+        {
+            XFrequency = creationConfig.XFrequency,
+            YFrequency = creationConfig.YFrequency,
+            XAmplitude = creationConfig.XAmplitude,
+            YAmplitude = creationConfig.YAmplitude
+        };
+
+        for (var i = 0; i < rows; i++)
+        {
+            var y = i * boardConfig.RowsHeight * boardConfig.ResizeFactorY + boardConfig.MarginDown;
+            var columnsToUse = positionsInX.Count;
+
+            for (var j = 0; j < columnsToUse; j++)
+            {
+                var x = positionsInX[j];
+                var peg = new Peg(particleConfig, pegConfig)
+                {
+                    Position = new Vector(x, y)
+                };
+                pegs.Add(peg);
+            }
+        }
+
+        return pegs.ToArray() as Particle[];
     }
 }

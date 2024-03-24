@@ -183,7 +183,8 @@
                             Grid.Column="2"
                             Margin="4"
                             Padding="10,5"
-                            VerticalAlignment="Stretch" />
+                            VerticalAlignment="Stretch"
+                            Visibility="Hidden" />
                     </Grid>
                 </Grid>
             </ScrollViewer>

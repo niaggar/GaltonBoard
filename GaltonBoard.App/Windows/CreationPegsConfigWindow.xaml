@@ -38,13 +38,17 @@
                             Value="10"
                             x:Name="RestitutionInput" />
 
-                        <TextBlock Margin="0,0,5,0" VerticalAlignment="Center">
+                        <TextBlock
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Visibility="Hidden">
                             Direction create
                         </TextBlock>
                         <ComboBox
                             Margin="10,5"
                             SelectedIndex="0"
                             VerticalAlignment="Center"
+                            Visibility="Hidden"
                             Width="70"
                             x:Name="DirectionCreateInput">
                             <ComboBoxItem Content="None" IsSelected="True" />
@@ -67,7 +71,6 @@
                         <components:ValueInput
                             InputType="Double"
                             Label="Min"
-                            Max="{Binding ElementName=RadiusMaxInput, Path=Value}"
                             Min="0.0"
                             TextBoxWidth="100"
                             Value="10"
@@ -75,6 +78,7 @@
                         <components:ValueInput
                             InputType="Double"
                             Label="Max"
+                            Min="0.0"
                             TextBoxWidth="100"
                             Value="10"
                             x:Name="RadiusMaxInput" />
@@ -94,7 +98,6 @@
                         <components:ValueInput
                             InputType="Double"
                             Label="Min"
-                            Max="{Binding ElementName=MassMaxInput, Path=Value}"
                             Min="0.0"
                             TextBoxWidth="100"
                             Value="10"
@@ -102,6 +105,7 @@
                         <components:ValueInput
                             InputType="Double"
                             Label="Max"
+                            Min="0.0"
                             TextBoxWidth="100"
                             Value="10"
                             x:Name="MassMaxInput" />
@@ -124,8 +128,6 @@
                         <components:ValueInput
                             InputType="Double"
                             Label="X"
-                            Max="{Binding ElementName=FrequencyYInput, Path=Value}"
-                            Min="0.0"
                             TextBoxWidth="80"
                             Value="10"
                             x:Name="FrequencyXInput" />
@@ -148,8 +150,6 @@
                         <components:ValueInput
                             InputType="Double"
                             Label="X"
-                            Max="{Binding ElementName=AmplitudeYInput, Path=Value}"
-                            Min="0.0"
                             TextBoxWidth="80"
                             Value="10"
                             x:Name="AmplitudeXInput" />

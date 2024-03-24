@@ -52,7 +52,12 @@ public class GaltonBoardSimulation
 
     public void Create()
     {
-        var pegs = ParticlesFactory.CreatePegs(PegCreationConfig, BoardConfig);
+        var pegs = BoardConfig.PegsDistribution switch
+        {
+            PegsDistributionEnum.Default => ParticlesFactory.CreatePegs(PegCreationConfig, BoardConfig),
+            PegsDistributionEnum.Rectangular => ParticlesFactory.CreateRectangularPegs(PegCreationConfig, BoardConfig),
+            _ => ParticlesFactory.CreatePegs(PegCreationConfig, BoardConfig)
+        };
         var border = BorderFactory.CreateBorder(pegs, BoardConfig);
         var balls = ParticlesFactory.CreateBalls(BallCreationConfig, border);
 

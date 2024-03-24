@@ -1,5 +1,5 @@
 ﻿<Window
-    Height="600"
+    Height="1000"
     Title="Creation Balls Config"
     Width="500"
     WindowStartupLocation="CenterOwner"
@@ -34,7 +34,7 @@
                         <components:ValueInput
                             InputType="Integer"
                             Label="Value"
-                            Min="0"
+                            Min="1"
                             TextBoxWidth="100"
                             Value="10"
                             x:Name="NumberOfBallsInput" />
@@ -93,7 +93,6 @@
                         <components:ValueInput
                             InputType="Double"
                             Label="Min"
-                            Max="{Binding ElementName=RadiosMaxInput, Path=Value}"
                             Min="0.0"
                             TextBoxWidth="100"
                             Value="10"
@@ -120,7 +119,6 @@
                         <components:ValueInput
                             InputType="Double"
                             Label="Min"
-                            Max="{Binding ElementName=MassMaxInput, Path=Value}"
                             Min="0.0"
                             TextBoxWidth="100"
                             Value="10"
@@ -150,7 +148,7 @@
                         <components:ValueInput
                             InputType="Double"
                             Label="Min"
-                            Max="{Binding ElementName=XOriginMaxInput, Path=Value}"
+                            Max="1.0"
                             Min="0.0"
                             TextBoxWidth="80"
                             Value="0.5"
@@ -176,7 +174,7 @@
                         <components:ValueInput
                             InputType="Double"
                             Label="Min"
-                            Max="{Binding ElementName=YOriginMaxInput, Path=Value}"
+                            Max="1.0"
                             Min="0.0"
                             TextBoxWidth="80"
                             Value="0.9"
@@ -203,21 +201,20 @@
                         Orientation="Horizontal"
                         VerticalAlignment="Center">
                         <TextBlock Margin="0,0,30,0" VerticalAlignment="Center">
-                            ->X
+                            Angle (Degrees)
                         </TextBlock>
                         <components:ValueInput
                             InputType="Double"
                             Label="Min"
-                            Max="{Binding ElementName=VelocityXMaxInput, Path=Value}"
                             TextBoxWidth="80"
                             Value="10"
-                            x:Name="VelocityXMinInput" />
+                            x:Name="VelocityXMinAngleInput" />
                         <components:ValueInput
                             InputType="Double"
                             Label="Max"
                             TextBoxWidth="80"
                             Value="10"
-                            x:Name="VelocityXMaxInput" />
+                            x:Name="VelocityXMaxAngleInput" />
                     </StackPanel>
 
                     <StackPanel
@@ -225,22 +222,12 @@
                         Margin="0,10"
                         Orientation="Horizontal"
                         VerticalAlignment="Center">
-                        <TextBlock Margin="0,0,30,0" VerticalAlignment="Center">
-                            ->Y
-                        </TextBlock>
                         <components:ValueInput
                             InputType="Double"
-                            Label="Min"
-                            Max="{Binding ElementName=VelocityYMaxInput, Path=Value}"
+                            Label="Velocity magnitude"
                             TextBoxWidth="80"
                             Value="10"
-                            x:Name="VelocityYMinInput" />
-                        <components:ValueInput
-                            InputType="Double"
-                            Label="Max"
-                            TextBoxWidth="80"
-                            Value="10"
-                            x:Name="VelocityYMaxInput" />
+                            x:Name="VelocityMagnitudeInput" />
                     </StackPanel>
                 </StackPanel>
             </ScrollViewer>

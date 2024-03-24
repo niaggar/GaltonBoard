@@ -30,10 +30,9 @@ public partial class CreationBallsConfigWindow : Window
         XOriginMaxInput.Value = config.CenterX.Max.ToString(CultureInfo.InvariantCulture);
         YOriginMinInput.Value = config.CenterY.Min.ToString(CultureInfo.InvariantCulture);
         YOriginMaxInput.Value = config.CenterY.Max.ToString(CultureInfo.InvariantCulture);
-        VelocityXMinInput.Value = config.InitialVelocityX.Min.ToString(CultureInfo.InvariantCulture);
-        VelocityXMaxInput.Value = config.InitialVelocityX.Max.ToString(CultureInfo.InvariantCulture);
-        VelocityYMinInput.Value = config.InitialVelocityY.Min.ToString(CultureInfo.InvariantCulture);
-        VelocityYMaxInput.Value = config.InitialVelocityY.Max.ToString(CultureInfo.InvariantCulture);
+        VelocityXMinAngleInput.Value = config.VelocityAngleRange.Min.ToString(CultureInfo.InvariantCulture);
+        VelocityXMaxAngleInput.Value = config.VelocityAngleRange.Max.ToString(CultureInfo.InvariantCulture);
+        VelocityMagnitudeInput.Value = config.VelocityMagnitude.ToString(CultureInfo.InvariantCulture);
     }
 
     private void Save(object sender, RoutedEventArgs e)
@@ -46,8 +45,8 @@ public partial class CreationBallsConfigWindow : Window
         Config.Mass = Range<double>.CreateMinMax(double.Parse(MassMinInput.Value), double.Parse(MassMaxInput.Value));
         Config.CenterX = Range<double>.CreateMinMax(double.Parse(XOriginMinInput.Value), double.Parse(XOriginMaxInput.Value));
         Config.CenterY = Range<double>.CreateMinMax(double.Parse(YOriginMinInput.Value), double.Parse(YOriginMaxInput.Value));
-        Config.InitialVelocityX = Range<double>.CreateMinMax(double.Parse(VelocityXMinInput.Value), double.Parse(VelocityXMaxInput.Value));
-        Config.InitialVelocityY = Range<double>.CreateMinMax(double.Parse(VelocityYMinInput.Value), double.Parse(VelocityYMaxInput.Value));
+        Config.VelocityAngleRange = Range<double>.CreateMinMax(double.Parse(VelocityXMinAngleInput.Value), double.Parse(VelocityXMaxAngleInput.Value));
+        Config.VelocityMagnitude = double.Parse(VelocityMagnitudeInput.Value);
 
         Close();
     }

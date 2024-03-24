@@ -42,32 +42,34 @@ public static class ParticleCollider
 
     private static void ResolveBallPeg(CollisionResult collision, Particle a, Particle b)
     {
-        Ball ball = (Ball)a;
-        Peg peg = (Peg)b;
+        var ball = (Ball)a;
+        var peg = (Peg)b;
 
         var dx = ball.Position.X - peg.Position.X;
         var dy = ball.Position.Y - peg.Position.Y;
-        var impact_angle = Math.Atan2(dy, dx);
+        var impactAngle = Math.Atan2(dy, dx);
 
         var vxa = ball.Velocity.X;
         var vya = ball.Velocity.Y;
-        var aplha_0 = peg.Config.Restitution;
+        var aplha0 = peg.Config.Restitution;
 
-        var impact_angle_cos = Math.Cos(impact_angle);
-        var impact_angle_sin = Math.Sin(impact_angle);
+        var impactAngleCos = Math.Cos(impactAngle);
+        var impactAngleSin = Math.Sin(impactAngle);
 
-        var v_tangen = -vxa * impact_angle_sin + vya * impact_angle_cos;
-        var v_radial = -aplha_0 * (vxa * impact_angle_cos + vya * impact_angle_sin);
+        var vTangen = -vxa * impactAngleSin + vya * impactAngleCos;
+        var vRadial = peg.Position.Y > ball.Position.Y
+            ? vya * impactAngleSin + vxa * impactAngleCos
+            : -aplha0 * (vxa * impactAngleCos + vya * impactAngleSin);
 
-        var vx_new = v_radial * impact_angle_cos - v_tangen * impact_angle_sin;
-        var vy_new = v_radial * impact_angle_sin + v_tangen * impact_angle_cos;
+        var vxNew = vRadial * impactAngleCos - vTangen * impactAngleSin;
+        var vyNew = vRadial * impactAngleSin + vTangen * impactAngleCos;
 
-        var sum_radius = ball.Config.Radius + peg.Config.Radius;
-        var new_x = (sum_radius) * impact_angle_cos + peg.Position.X;
-        var new_y = (sum_radius) * impact_angle_sin + peg.Position.Y;
+        var sumRadius = ball.Config.Radius + peg.Config.Radius;
+        var newX = (sumRadius) * impactAngleCos + peg.Position.X;
+        var newY = (sumRadius) * impactAngleSin + peg.Position.Y;
 
-        ball.Position = new Vector(new_x, new_y);
-        ball.Velocity = new Vector(vx_new, vy_new);
+        ball.Position = new Vector(newX, newY);
+        ball.Velocity = new Vector(vxNew, vyNew);
     }
 
     private static void ResolveBallBall(CollisionResult collision, Particle a, Particle b)
@@ -75,40 +77,40 @@ public static class ParticleCollider
         var normal = collision.Normal;
         var tangent = new Vector(-normal.Y, normal.X);
 
-        var v1n = Vector.Dot(normal, a.Velocity);
-        var v1t = Vector.Dot(tangent, a.Velocity);
+        var v1N = Vector.Dot(normal, a.Velocity);
+        var v1T = Vector.Dot(tangent, a.Velocity);
 
-        var v2n = Vector.Dot(normal, b.Velocity);
-        var v2t = Vector.Dot(tangent, b.Velocity);
+        var v2N = Vector.Dot(normal, b.Velocity);
+        var v2T = Vector.Dot(tangent, b.Velocity);
 
-        var mass_1 = a.Config.Mass;
-        var mass_2 = b.Config.Mass;
-        var total_mass = mass_1 + mass_2;
+        var mass1 = a.Config.Mass;
+        var mass2 = b.Config.Mass;
+        var totalMass = mass1 + mass2;
 
         // Conservation of momentum
-        var v1n_new = (v1n * (mass_1 - mass_2) + 2 * mass_2 * v2n) / total_mass;
-        var v2n_new = (v2n * (mass_2 - mass_1) + 2 * mass_1 * v1n) / total_mass;
+        var v1NNew = (v1N * (mass1 - mass2) + 2 * mass2 * v2N) / totalMass;
+        var v2NNew = (v2N * (mass2 - mass1) + 2 * mass1 * v1N) / totalMass;
 
-        var v2n_new_vect = normal * v2n_new;
-        var v1n_new_vect = normal * v1n_new;
+        var v2NNewVect = normal * v2NNew;
+        var v1NNewVect = normal * v1NNew;
 
-        var v1t_new_vect = tangent * v1t;
-        var v2t_new_vect = tangent * v2t;
+        var v1TNewVect = tangent * v1T;
+        var v2TNewVect = tangent * v2T;
 
-        var v1_new = (v1n_new_vect + v1t_new_vect) * b.Config.Restitution;
-        var v2_new = (v2n_new_vect + v2t_new_vect) * a.Config.Restitution;
+        var v1New = (v1NNewVect + v1TNewVect) * b.Config.Restitution;
+        var v2New = (v2NNewVect + v2TNewVect) * a.Config.Restitution;
 
-        a.Velocity = v1_new;
-        b.Velocity = v2_new;
+        a.Velocity = v1New;
+        b.Velocity = v2New;
 
         // Position correction
-        var sum_radius = a.Config.Radius + b.Config.Radius;
-        var mass_ratio_1 = a.Config.Radius / sum_radius;
-        var mass_ratio_2 = b.Config.Radius / sum_radius;
-        var delta = 0.5f * (collision.Penetration - sum_radius);
+        var sumRadius = a.Config.Radius + b.Config.Radius;
+        var massRatio1 = a.Config.Radius / sumRadius;
+        var massRatio2 = b.Config.Radius / sumRadius;
+        var delta = 0.5f * (collision.Penetration - sumRadius);
 
-        var p1 = a.Position - normal * (mass_ratio_2 * delta);
-        var p2 = b.Position + normal * (mass_ratio_1 * delta);
+        var p1 = a.Position - normal * (massRatio2 * delta);
+        var p2 = b.Position + normal * (massRatio1 * delta);
 
         a.Position = p1;
         b.Position = p2;
