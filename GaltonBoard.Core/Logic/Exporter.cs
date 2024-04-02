@@ -19,9 +19,10 @@ public class Exporter
     private Vector[]? DrawBorder { get; set; }
 
 
-    public Exporter(ExportConfig exportConfig)
+    public Exporter(ExportConfig exportConfig, Vector[]? drawBorder = null)
     {
         ExportConfig = exportConfig;
+        DrawBorder = drawBorder;
 
         if (ExportConfig.ExportPath)
         {
@@ -40,14 +41,8 @@ public class Exporter
     {
         if (!ExportConfig.ExportPath) return;
 
-        if (DrawBorder is null)
-        {
-            // DrawBorder = BorderFactory.CreateDrawBorder(border);
-            DrawBorder = Array.Empty<Vector>();
-        }
-
         var totalNumberOfParticles = particles.Length;
-        var totalNumberOfDrawBorderPoints = DrawBorder.Length;
+        var totalNumberOfDrawBorderPoints = DrawBorder?.Length ?? 0;
 
         var totalOfPoints = totalNumberOfParticles + totalNumberOfDrawBorderPoints;
         var headerString = GetExportHeaderString(totalOfPoints);
@@ -115,8 +110,9 @@ public class Exporter
         return $"{num}\t{type}\t{position.X.ToString(CultureInfo.InvariantCulture)}\t{position.Y.ToString(CultureInfo.InvariantCulture)}\t{radius.ToString(CultureInfo.InvariantCulture)}\n";
     }
 
-    private static string GetExportBorderString(Vector[] drawBorder, int lastParticleIndex)
+    private static string GetExportBorderString(Vector[]? drawBorder, int lastParticleIndex)
     {
+        if (drawBorder == null) return string.Empty;
         return drawBorder
             .Select((point, i) => $"{lastParticleIndex + i}\t{2}\t{point.X.ToString(CultureInfo.InvariantCulture)}\t{point.Y.ToString(CultureInfo.InvariantCulture)}\t{Constants.RadiusBorderScale.ToString(CultureInfo.InvariantCulture)}\n")
             .Aggregate(string.Empty, (current, pointString) => current + pointString);

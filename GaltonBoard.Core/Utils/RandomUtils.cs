@@ -10,4 +10,9 @@ public static class RandomUtils
     {
         return Random.NextDouble() * (range.Max - range.Min) + range.Min;
     }
+
+    public static int GetRandomInt()
+    {
+        return Random.Next();
+    }
 }

@@ -85,6 +85,7 @@ public static class ParticlesFactory
             YAmplitude = creationConfig.YAmplitude
         };
 
+        var paticulaDePrueba = true;
         for (var i = 0; i < rows; i++)
         {
             var y = i * boardConfig.RowsHeight * boardConfig.ResizeFactorY + boardConfig.MarginDown;
@@ -98,6 +99,12 @@ public static class ParticlesFactory
                 {
                     Position = new Vector(x, y)
                 };
+                if (paticulaDePrueba)
+                {
+                    peg.Id = 6969696;
+                    paticulaDePrueba = false;
+                }
+
                 pegs.Add(peg);
             }
         }

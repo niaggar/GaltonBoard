@@ -5,7 +5,7 @@ using GaltonBoard.Model.Models;
 
 namespace GaltonBoard.Core.Logic;
 
-public class Engine(EngineConfig configs, int particlesCount, int pegsCount)
+public class Engine(EngineConfig configs, BoardConfig board, int particlesCount, int pegsCount)
 {
     public double CurrentTime { get; set; } = 0.0d;
     public int CurrentStep { get; set; } = 0;
@@ -35,8 +35,6 @@ public class Engine(EngineConfig configs, int particlesCount, int pegsCount)
         for (var i = 0; i < subSteps; i++)
         {
             UpdatePegs(deltaSubStep);
-
-
             UpdateBalls(deltaSubStep);
             ValidateCollisions();
         }
@@ -129,7 +127,8 @@ public class Engine(EngineConfig configs, int particlesCount, int pegsCount)
 
         var maxStepsIsZero = MaxSteps == 0;
         var finishedByMaxSteps = CurrentStep >= MaxSteps && !maxStepsIsZero;
-        var finishedByInactiveBalls = particlesInactive >= BallsCount;
+        // var finishedByInactiveBalls = particlesInactive >= BallsCount;
+        var finishedByInactiveBalls = false;
 
         if (finishedByMaxSteps || finishedByInactiveBalls)
         {

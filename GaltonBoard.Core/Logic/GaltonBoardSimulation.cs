@@ -60,12 +60,13 @@ public class GaltonBoardSimulation
         };
         var border = BorderFactory.CreateBorder(pegs, BoardConfig);
         var balls = ParticlesFactory.CreateBalls(BallCreationConfig, border);
+        var drawBorder = BorderFactory.CreateDrawBorder(border);
 
         Balls = balls;
         Pegs = pegs;
         EngineConfig.Border = border;
         Engine = new Engine(EngineConfig, BoardConfig, balls.Length, pegs.Length);
-        Exporter = new Exporter(ExportConfig);
+        Exporter = new Exporter(ExportConfig, drawBorder);
         Timer = new Stopwatch();
 
         Engine.MaxSteps = TimeConfig.MaxSteps;
@@ -116,7 +117,7 @@ public class GaltonBoardSimulation
 
     public void ExportHistogram()
     {
-        var balls = Engine.Particles.Where(p => p is Ball).ToArray();
+        var balls = Engine.Particles.Where(p => p is Ball && p.Config.IsInactive == true).ToArray();
         var border = Engine.Configs.Border;
         var numberOfBins = BoardConfig.NumberOfColumns;
         Histogram = Histogram.Create(balls, numberOfBins, (float)border.Width);
