@@ -14,6 +14,9 @@ It is possible to customize values such as:
 - Vibrations of the pins.
 - etc.
 
-Developed by: **IPT UniValle Group** ❤️ (Kevin Giraldo, Andres Valencia, Nicolas Aguilera)
+Developed by: **IPT UniValle Group** ❤️ 
+- Nicolas Aguilera.
+- Kevin Giraldo.
+- Andres Valencia.
 
 ![logo.png](imgs%2Flogo.png)
