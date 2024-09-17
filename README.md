@@ -14,6 +14,8 @@ It is possible to customize values such as:
 - Vibrations of the pins.
 - etc.
 
+The presentation of the proposed solution given by the Colombian team can be seen here: https://docs.google.com/presentation/d/1pFj1MYFzL2bfL1-pL6skxryTZbD89Zf_/edit?usp=sharing&ouid=107561484371809526311&rtpof=true&sd=true
+
 Developed by: **IPT UniValle Group** ❤️ 
 - Nicolas Aguilera.
 - Kevin Giraldo.
